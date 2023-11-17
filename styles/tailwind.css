@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+    font-family: 'grenette';
+    src: local('grenette'), url('/fonts/grenette-regular.ttf') format('truetype');
+}
+
+  html body {
+    background-color: #083D77; /* Use your desired color value */
+  }
