@@ -19,5 +19,9 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/node": "^20.9.1",
+    "typescript": "^5.2.2"
   }
 }
