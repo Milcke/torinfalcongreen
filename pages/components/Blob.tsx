@@ -189,7 +189,7 @@ const Blob: React.FC<BlobProps> = ({ scale = [1.5, 1.5, 1.5], position = [0, 0, 
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
         uniforms={uniforms}
-      />
+       />
     </mesh>
   );
 };
