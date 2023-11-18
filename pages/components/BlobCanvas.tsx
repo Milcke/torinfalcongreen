@@ -1,7 +1,8 @@
 "use client"
-import React, { useMemo, useRef } from "react";
-import { useFrame, Canvas } from "@react-three/fiber";
+import React from "react";
+import { Canvas } from "@react-three/fiber";
 import Blob from "./Blob";
+
 
 import { MathUtils, Mesh, BufferGeometry, ShaderMaterial, NormalBufferAttributes } from "three";
 // import vertexShader from "./vertexShader";

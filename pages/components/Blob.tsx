@@ -1,7 +1,5 @@
-"use client"
-import React, { useMemo, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
-import { MathUtils, Mesh, BufferGeometry, ShaderMaterial, NormalBufferAttributes , IcosahedronGeometry } from "three";
+import React, { useEffect, useMemo, useRef } from "react";
+import { MathUtils, Mesh, BufferGeometry, ShaderMaterial, NormalBufferAttributes, IcosahedronGeometry } from "three";
 
 interface BlobProps {
   scale?: [number, number, number];
@@ -14,6 +12,7 @@ interface CustomShaderMaterial extends ShaderMaterial {
     u_intensity: { value: number };
   };
 }
+
 const fragmentShader = `
 uniform float u_intensity;
 uniform float u_time;
@@ -148,27 +147,42 @@ const Blob: React.FC<BlobProps> = ({ scale = [1.5, 1.5, 1.5], position = [0, 0, 
     };
   }, []);
 
-  useFrame((state) => {
-    const { clock } = state;
-    if (mesh.current) {
-      const material = mesh.current.material as CustomShaderMaterial;
-      material.uniforms.u_time.value = 0.4 * clock.getElapsedTime();
+  useEffect(() => {
+    const startTime = Date.now();
 
-      material.uniforms.u_intensity.value = MathUtils.lerp(
-        material.uniforms.u_intensity.value,
-        hover.current ? 1 : 0.15,
-        0.02
-      );
-    }
-  });
+    const handleFrame = () => {
+      const currentTime = Date.now();
+      const elapsedMilliseconds = currentTime - startTime;
+      const elapsedSeconds = elapsedMilliseconds / 1000;
+      const animationSpeedFactor = 0.2; // Adjust this factor to control the animation speed
+
+      if (mesh.current) {
+        const material = mesh.current.material as CustomShaderMaterial;
+        material.uniforms.u_time.value = elapsedSeconds * animationSpeedFactor;
+
+        material.uniforms.u_intensity.value = MathUtils.lerp(
+          material.uniforms.u_intensity.value,
+          hover.current ? 1 : 0.15,
+          0.02
+        );
+      }
+
+      window.requestAnimationFrame(handleFrame);
+    };
+
+    const frameId = window.requestAnimationFrame(handleFrame);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+    };
+  }, []);
 
   return (
     <mesh
       ref={mesh}
       scale={scale}
       position={position}
-      // onPointerOver={() => (hover.current = true)}
-      // onPointerOut={() => (hover.current = false)}
+   
     >
       <icosahedronGeometry args={[2, 20]} />
       <shaderMaterial
