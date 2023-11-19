@@ -3,12 +3,6 @@ import React from "react";
 import { Canvas } from "@react-three/fiber";
 import Blob from "./Blob";
 
-
-import { MathUtils, Mesh, BufferGeometry, ShaderMaterial, NormalBufferAttributes } from "three";
-// import vertexShader from "./vertexShader";
-// import fragmentShader from "./fragmentShader";
-
-
 const BlobCanvas = () => {
 
 
