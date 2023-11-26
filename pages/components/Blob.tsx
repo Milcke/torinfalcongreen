@@ -4,6 +4,7 @@ import { MathUtils, Mesh, BufferGeometry, ShaderMaterial, NormalBufferAttributes
 interface BlobProps {
   scale?: [number, number, number];
   position?: [number, number, number];
+
 }
 
 interface CustomShaderMaterial extends ShaderMaterial {
